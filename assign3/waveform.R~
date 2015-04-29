@@ -1,0 +1,30 @@
+require(MASS)
+
+"waveform" <- function(n)
+{
+  class <- as.numeric(cut(runif(n), c(0, 1/3, 2/3, 1)))
+  h <- function(xoff)
+    pmax(6 - abs(seq(21) - 11 + xoff), 0)
+  x <- rbind(h(0), h(-4), h(4))
+  x1 <- x[c(1, 1, 2),  ][class,  ]
+  x2 <- x[c(2, 3, 3),  ][class,  ]
+  u <- runif(n)
+  data.frame(x = I(u * x1 + (1 - u) * x2 + rnorm(n * 21)), y = class)
+}
+
+train <- waveform(300)
+val <- waveform(200)
+test <- waveform(500)
+write.table(train,file="training",quote=F,sep="\t",row.names=F)
+write.table(val,file="validn",quote=F,sep="\t",row.names=F)
+write.table(test,file="testset",quote=F,sep="\t",row.names=F)
+
+fit <- lda(y~., data = train)
+testing <- predict(fit, newdata = test)
+ct <- table(test$y, testing$class)
+diag(prop.table(ct, 1))
+sum(diag(prop.table(ct)))   #accuracy = 0.818
+
+fit <- qda(y~., data = train)  #accuracy = 0.792
+
+#plot(fit)

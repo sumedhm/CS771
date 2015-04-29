@@ -1,0 +1,172 @@
+library(rpart)
+library(caret)
+
+diabetesData <- read.csv(file="pima-indians-diabetes.csv",head=TRUE,sep=",")
+#summary(diabetesData)
+
+diabetesData[,2:8][diabetesData[,2:8]==0] = NA
+
+diabetesData$tricep[is.na(diabetesData$tricep)] <- median(diabetesData$tricep, na.rm=TRUE)
+diabetesData$insulin[is.na(diabetesData$insulin)] <- median(diabetesData$insulin, na.rm=TRUE)
+
+#Threshold on decrease in impurity using information
+print("Threshold(0.005) on decrease in impurity(using Information)");
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(cp=0.005, maxsurrogate = 5, usesurrogate = 2, xval = 5, surrogatestyle=0)), parms=list(split='information'))
+plot(fit, uniform=TRUE, main="Threshold(0.005) on decrease in impurity(using Information)")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(fit) 
+plotcp(fit)
+
+#Threshold on decrease in impurity using information
+print("Threshold(0.01) on decrease in impurity(using Information)");
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(cp=0.01, maxsurrogate = 5, usesurrogate = 2, xval = 5, surrogatestyle=0)), parms=list(split='information'))
+plot(fit, uniform=TRUE, main="Threshold(0.01) on decrease in impurity(using Information)")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(fit) 
+plotcp(fit)
+
+#Threshold on decrease in impurity using information
+print("Threshold(0.015) on decrease in impurity(using Information)");
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(cp=0.015, maxsurrogate = 5, usesurrogate = 2, xval = 5, surrogatestyle=0)), parms=list(split='information'))
+plot(fit, uniform=TRUE, main="Threshold(0.015) on decrease in impurity(using Information)")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(fit) 
+plotcp(fit)
+
+#Threshold on decrease in impurity using information
+print("Threshold(0.02) on decrease in impurity(using Information)");
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(cp=0.02, maxsurrogate = 5, usesurrogate = 2, xval = 5, surrogatestyle=0)), parms=list(split='information'))
+plot(fit, uniform=TRUE, main="Threshold(0.02) on decrease in impurity(using Information)")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(fit) 
+plotcp(fit)
+
+#Threshold on decrease in impurity using gini
+print("Threshold(0.005) on decrease in impurity(using Gini)");
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(cp=0.005, maxsurrogate = 5, usesurrogate = 2, xval = 5, surrogatestyle=0)), parms=list(split='gini'))
+plot(fit, uniform=TRUE, main="Threshold(0.005) on decrease in impurity(using Gini)")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(fit) 
+plotcp(fit)
+
+#Threshold on decrease in impurity using gini
+print("Threshold(0.01) on decrease in impurity(using Gini)");
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(cp=0.01, maxsurrogate = 5, usesurrogate = 2, xval = 5, surrogatestyle=0)), parms=list(split='gini'))
+plot(fit, uniform=TRUE, main="Threshold(0.01) on decrease in impurity(using Gini)")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(fit) 
+plotcp(fit)
+
+#Threshold on decrease in impurity using gini
+print("Threshold(0.015) on decrease in impurity(using Gini)");
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(cp=0.015, maxsurrogate = 5, usesurrogate = 2, xval = 5, surrogatestyle=0)), parms=list(split='gini'))
+plot(fit, uniform=TRUE, main="Threshold(0.015) on decrease in impurity(using Gini)")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(fit) 
+plotcp(fit)
+
+#Threshold on decrease in impurity using gini
+print("Threshold(0.02) on decrease in impurity(using Gini)");
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(cp=0.02, maxsurrogate = 5, usesurrogate = 2, xval = 5, surrogatestyle=0)), parms=list(split='gini'))
+plot(fit, uniform=TRUE, main="Threshold(0.02) on decrease in impurity(using Gini)")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(fit) 
+plotcp(fit)
+
+
+#Threshold on no.of data vectors at a node using information
+print("Threshold(=5) on no.of data vectors at a node(using Information)");
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(minbucket = 5, maxsurrogate = 5, usesurrogate = 2, xval = 5, surrogatestyle=0)), parms=list(split='information'))
+plot(fit, uniform=TRUE, main="Threshold(=5) on no.of data vectors at a node(using Information)")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(fit) 
+plotcp(fit)
+
+#Threshold on no.of data vectors at a node using information
+print("Threshold(=10) on no.of data vectors at a node(using Information)");
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(minbucket = 10, maxsurrogate = 5, usesurrogate = 2, xval = 5, surrogatestyle=0)), parms=list(split='information'))
+plot(fit, uniform=TRUE, main="Threshold(=10) on no.of data vectors at a node(using Information)")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(fit) 
+plotcp(fit)
+
+#Threshold on no.of data vectors at a node using information
+print("Threshold(=15) on no.of data vectors at a node(using Information)");
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(minbucket = 15, maxsurrogate = 5, usesurrogate = 2, xval = 5, surrogatestyle=0)), parms=list(split='information'))
+plot(fit, uniform=TRUE, main="Threshold(=15) on no.of data vectors at a node(using Information)")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(fit) 
+plotcp(fit)
+
+#Threshold on no.of data vectors at a node using information
+print("Threshold(=20) on no.of data vectors at a node(using Information)");
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(minbucket = 20, maxsurrogate = 5, usesurrogate = 2, xval = 5, surrogatestyle=0)), parms=list(split='information'))
+plot(fit, uniform=TRUE, main="Threshold(=20) on no.of data vectors at a node(using Information)")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(fit) 
+plotcp(fit)
+
+#Threshold on no.of data vectors at a node using Gini
+print("Threshold(=5) on no.of data vectors at a node(using Gini)");
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(minbucket = 5, maxsurrogate = 5, usesurrogate = 2, xval = 5, surrogatestyle=0)), parms=list(split='gini'))
+plot(fit, uniform=TRUE, main="Threshold(=5) on no.of data vectors at a node(using Gini)")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(fit) 
+plotcp(fit)
+
+#Threshold on no.of data vectors at a node using Gini
+print("Threshold(=10) on no.of data vectors at a node(using Gini)");
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(minbucket = 10, maxsurrogate = 5, usesurrogate = 2, xval = 5, surrogatestyle=0)), parms=list(split='gini'))
+plot(fit, uniform=TRUE, main="Threshold(=10) on no.of data vectors at a node(using Gini)")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(fit) 
+plotcp(fit)
+
+#Threshold on no.of data vectors at a node using Gini
+print("Threshold(=15) on no.of data vectors at a node(using Gini)");
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(minbucket = 15, maxsurrogate = 5, usesurrogate = 2, xval = 5, surrogatestyle=0)), parms=list(split='gini'))
+plot(fit, uniform=TRUE, main="Threshold(=15) on no.of data vectors at a node(using Gini)")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(fit) 
+plotcp(fit)
+
+#Threshold on no.of data vectors at a node using Gini
+print("Threshold(=20) on no.of data vectors at a node(using Gini)");
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(minbucket = 20, maxsurrogate = 5, usesurrogate = 2, xval = 5, surrogatestyle=0)), parms=list(split='gini'))
+plot(fit, uniform=TRUE, main="Threshold(=20) on no.of data vectors at a node(using Gini)")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(fit) 
+plotcp(fit)
+
+cv <- trainControl("cv",5)
+
+print("Grow full using gini function")
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(maxsurrogate = 5, usesurrogate = 2, xval = 5, surrogatestyle=0)), parms=list(split='gini'))
+plot(fit, uniform=TRUE, main="Fully grown tree using gini function")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(fit) 
+plotcp(fit)
+print("Prune using gini function")
+rpart.grid <- expand.grid(.cp=fit$cptable[which.min(fit$cptable[,"xerror"]),"CP"])
+(train.rpart <- train(class ~., data=diabetesData, method="rpart",trControl=cv,tuneGrid=rpart.grid))
+pfit <- prune(fit, cp = fit$cptable[which.min(fit$cptable[,"xerror"]),"CP"]) 
+plot(pfit, uniform=TRUE, main="Pruned tree after growing fully using gini function")
+text(pfit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(pfit) 
+plotcp(pfit)
+
+print("Grow full using information function")
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(maxsurrogate = 5, usesurrogate = 2, xval = 5, surrogatestyle=0)), parms=list(split='information'))
+plot(fit, uniform=TRUE, main="Fully grown tree using information function")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(fit) 
+plotcp(fit)
+print("Prune using information function")
+rpart.grid <- expand.grid(.cp=fit$cptable[which.min(fit$cptable[,"xerror"]),"CP"])
+(train.rpart <- train(class ~., data=diabetesData, method="rpart",trControl=cv,tuneGrid=rpart.grid))
+pfit <- prune(fit, cp = fit$cptable[which.min(fit$cptable[,"xerror"]),"CP"]) 
+plot(pfit, uniform=TRUE, main="Pruned tree using information function")
+text(pfit, use.n=TRUE, all=TRUE, cex=.8)
+printcp(pfit) 
+plotcp(pfit)
+

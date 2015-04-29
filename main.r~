@@ -1,0 +1,93 @@
+library(rpart)
+diabetesData <- read.csv(file="pima-indians-diabetes.csv",head=TRUE,sep=",")
+summary(diabetesData)
+
+for(i in 1:nrow(diabetesData)){
+	if (diabetesData$glucose[i] >(mean(diabetesData$glucose)+2.5*sd(diabetesData$glucose))){
+		diabetesData$glucose[i] = mean(diabetesData$glucose)
+	}else if(diabetesData$glucose[i] <(mean(diabetesData$glucose)-2.5*sd(diabetesData$glucose))){
+		diabetesData$glucose[i] = mean(diabetesData$glucose)		
+	}else{
+		diabetesData$glucose[i] = diabetesData$glucose[i]
+	} 
+}
+
+for(i in 1:nrow(diabetesData)){
+	if (diabetesData$pregnant[i] >(mean(diabetesData$pregnant)+2.5*sd(diabetesData$pregnant))){
+		diabetesData$pregnant[i] = mean(diabetesData$pregnant)
+	}else if(diabetesData$pregnant[i] <(mean(diabetesData$pregnant)-2.5*sd(diabetesData$pregnant))){
+		diabetesData$pregnant[i] = mean(diabetesData$pregnant)		
+	}else{
+		diabetesData$pregnant[i] = diabetesData$pregnant[i]
+	} 
+}
+
+for(i in 1:nrow(diabetesData)){
+	if (diabetesData$bp[i] >(mean(diabetesData$bp)+2.5*sd(diabetesData$bp))){
+		diabetesData$bp[i] = mean(diabetesData$bp)
+	}else if(diabetesData$bp[i] <(mean(diabetesData$bp)-2.5*sd(diabetesData$bp))){
+		diabetesData$bp[i] = mean(diabetesData$bp)		
+	}else{
+		diabetesData$bp[i] = diabetesData$bp[i]
+	} 
+}
+
+for(i in 1:nrow(diabetesData)){
+	if (diabetesData$tricep[i] >(mean(diabetesData$tricep)+2.5*sd(diabetesData$tricep))){
+		diabetesData$tricep[i] = mean(diabetesData$tricep)
+	}else if(diabetesData$tricep[i] <(mean(diabetesData$tricep)-2.5*sd(diabetesData$tricep))){
+		diabetesData$tricep[i] = mean(diabetesData$tricep)		
+	}else{
+		diabetesData$tricep[i] = diabetesData$tricep[i]
+	} 
+}
+
+for(i in 1:nrow(diabetesData)){
+	if (diabetesData$insulin[i] >(mean(diabetesData$insulin)+2.5*sd(diabetesData$insulin))){
+		diabetesData$insulin[i] = mean(diabetesData$insulin)
+	}else if(diabetesData$insulin[i] <(mean(diabetesData$insulin)-2.5*sd(diabetesData$insulin))){
+		diabetesData$insulin[i] = mean(diabetesData$insulin)		
+	}else{
+		diabetesData$insulin[i] = diabetesData$insulin[i]
+	} 
+}
+
+for(i in 1:nrow(diabetesData)){
+	if (diabetesData$bmi[i] >(mean(diabetesData$bmi)+2.5*sd(diabetesData$bmi))){
+		diabetesData$bmi[i] = mean(diabetesData$bmi)
+	}else if(diabetesData$bmi[i] <(mean(diabetesData$bmi)-2.5*sd(diabetesData$bmi))){
+		diabetesData$bmi[i] = mean(diabetesData$bmi)		
+	}else{
+		diabetesData$bmi[i] = diabetesData$bmi[i]
+	} 
+}
+
+for(i in 1:nrow(diabetesData)){
+	if (diabetesData$dpf[i] >(mean(diabetesData$dpf)+2.5*sd(diabetesData$dpf))){
+		diabetesData$dpf[i] = mean(diabetesData$dpf)
+	}else if(diabetesData$dpf[i] <(mean(diabetesData$dpf)-2.5*sd(diabetesData$dpf))){
+		diabetesData$dpf[i] = mean(diabetesData$dpf)		
+	}else{
+		diabetesData$dpf[i] = diabetesData$dpf[i]
+	} 
+}
+
+for(i in 1:nrow(diabetesData)){
+	if (diabetesData$age[i] >(mean(diabetesData$age)+2.5*sd(diabetesData$age))){
+		diabetesData$age[i] = mean(diabetesData$age)
+	}else if(diabetesData$age[i] <(mean(diabetesData$age)-2.5*sd(diabetesData$age))){
+		diabetesData$age[i] = mean(diabetesData$age)		
+	}else{
+		diabetesData$age[i] = diabetesData$age[i]
+	} 
+}
+
+summary(diabetesData)
+
+#Threshold on decrease in impurity using impurity function Information
+
+fit1i_i <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(xval=5, cp=0.01)), parms=list(split='information'))
+plot(fit, uniform=TRUE, main="Decision Tree 1(i) : Impurity Function - Information")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+
+

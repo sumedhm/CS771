@@ -1,0 +1,10 @@
+library(rpart)
+diabetesData <- read.csv(file="pima-indians-diabetes.csv",head=TRUE,sep=",")
+summary(diabetesData)
+fit <- rpart(class ~ pregnant+glucose+bp+tricep+insulin+bmi+dpf+age, method="class", data=diabetesData, control=(rpart.control(minbucket=)))
+plot(fit, uniform=TRUE, main="Decision Tree 1(i)")
+text(fit, use.n=TRUE, all=TRUE, cex=.8)
+#library(DAAG)
+#cv.lm(df=mydata, fit, m=5)
+
+
